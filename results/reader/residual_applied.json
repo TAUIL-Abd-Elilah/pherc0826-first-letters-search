@@ -1,0 +1,98 @@
+{
+ "PHerc0009B": {
+  "target": [
+   -3,
+   -6
+  ],
+  "applied": [
+   -4,
+   -9
+  ],
+  "correction": [
+   1,
+   3
+  ],
+  "src": "scroll median of 9",
+  "shifted": 0
+ },
+ "PHerc0139": {
+  "target": [
+   -6,
+   -6
+  ],
+  "applied": [
+   -9,
+   -8
+  ],
+  "correction": [
+   3,
+   2
+  ],
+  "src": "scroll median of 32",
+  "shifted": 0
+ },
+ "PHerc0343P": {
+  "target": [
+   -6,
+   -6
+  ],
+  "applied": [
+   -3,
+   -8
+  ],
+  "correction": [
+   -3,
+   2
+  ],
+  "src": "global median (scroll reliable n=2)",
+  "shifted": 0
+ },
+ "PHerc0500P2": {
+  "target": [
+   -6,
+   -6
+  ],
+  "applied": [
+   4,
+   5
+  ],
+  "correction": [
+   -10,
+   -11
+  ],
+  "src": "global median (scroll reliable n=2)",
+  "shifted": 46
+ },
+ "PHerc0814": {
+  "target": [
+   -7,
+   -7
+  ],
+  "applied": [
+   5,
+   5
+  ],
+  "correction": [
+   -12,
+   -12
+  ],
+  "src": "scroll median of 5",
+  "shifted": 19
+ },
+ "PHerc0841": {
+  "target": [
+   -6,
+   -6
+  ],
+  "applied": [
+   -8,
+   -8
+  ],
+  "correction": [
+   2,
+   2
+  ],
+  "src": "scroll median of 3",
+  "shifted": 0
+ }
+}

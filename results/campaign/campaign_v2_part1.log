@@ -1,0 +1,33 @@
+136 sites
+z1300_x0_d0 valid 0.526 {'ens_fwd': (0.299, 0.057), 'ens_rev': (0.0, 0.0)} one-sided 0.299 89 s
+z2600_x0_d0 valid 0.475 {'ens_fwd': (0.155, 0.059), 'ens_rev': (0.284, 0.077)} one-sided -0.129 109 s
+z3900_x0_d0 valid 0.606 {'ens_fwd': (0.043, 0.017), 'ens_rev': (0.075, 0.031)} one-sided -0.032 128 s
+z5200_x0_d0 valid 0.68 {'ens_fwd': (0.058, 0.013), 'ens_rev': (0.48, 0.242)} one-sided -0.422 128 s
+z6500_x0_d0 valid 0.681 {'ens_fwd': (0.262, 0.081), 'ens_rev': (0.105, 0.029)} one-sided 0.157 130 s
+z7800_x0_d0 valid 0.506 {'ens_fwd': (0.263, 0.076), 'ens_rev': (0.136, 0.017)} one-sided 0.127 132 s
+z9100_x0_d0 valid 0.806 {'ens_fwd': (0.081, 0.014), 'ens_rev': (0.06, 0.058)} one-sided 0.021 127 s
+z10400_x0_d0 valid 0.54 {'ens_fwd': (0.243, 0.06), 'ens_rev': (0.019, 0.003)} one-sided 0.224 131 s
+z11700_x0_d0 valid 0.889 {'ens_fwd': (0.358, 0.089), 'ens_rev': (0.008, 0.002)} one-sided 0.35 132 s
+z13000_x0_d0 valid 0.955 {'ens_fwd': (0.486, 0.1), 'ens_rev': (0.416, 0.04)} one-sided 0.07 136 s
+z14300_x0_d0 valid 0.743 {'ens_fwd': (0.222, 0.041), 'ens_rev': (0.204, 0.039)} one-sided 0.018 132 s
+z15600_x0_d0 valid 0.793 {'ens_fwd': (0.023, 0.004), 'ens_rev': (0.0, 0.0)} one-sided 0.023 147 s
+z2600_x1_d0 valid 0.621 {'ens_fwd': (0.102, 0.033), 'ens_rev': (0.667, 0.29)} one-sided -0.565 127 s
+z3900_x1_d0 valid 0.903 {'ens_fwd': (0.121, 0.048), 'ens_rev': (0.528, 0.126)} one-sided -0.407 143 s
+136 sites
+z5200_x1_d0 valid 0.727 {'ens_fwd': (0.063, 0.071), 'ens_rev': (0.014, 0.016)} one-sided 0.049 92 s
+z6500_x1_d0 valid 0.397 {'ens_fwd': (0.185, 0.2), 'ens_rev': (0.116, 0.054)} one-sided 0.069 148 s
+z7800_x1_d0 valid 0.424 {'ens_fwd': (0.089, 0.164), 'ens_rev': (0.042, 0.015)} one-sided 0.047 155 s
+z9100_x1_d0 valid 0.352 {'ens_fwd': (0.051, 0.036), 'ens_rev': (0.047, 0.069)} one-sided 0.004 150 s
+z10400_x1_d0 valid 0.549 {'ens_fwd': (0.091, 0.02), 'ens_rev': (0.086, 0.046)} one-sided 0.005 131 s
+z11700_x1_d0 valid 0.536 {'ens_fwd': (0.085, 0.035), 'ens_rev': (0.043, 0.028)} one-sided 0.042 154 s
+z13000_x1_d0 valid 0.841 {'ens_fwd': (0.081, 0.016), 'ens_rev': (0.072, 0.011)} one-sided 0.009 151 s
+z14300_x1_d0 valid 0.806 {'ens_fwd': (0.202, 0.045), 'ens_rev': (0.0, 0.0)} one-sided 0.202 148 s
+z15600_x1_d0 valid 0.806 {'ens_fwd': (0.06, 0.017), 'ens_rev': (0.039, 0.015)} one-sided 0.021 145 s
+z2600_x2_d0 valid 0.335 {'ens_fwd': (0.071, 0.085), 'ens_rev': (0.103, 0.123)} one-sided -0.032 169 s
+z3900_x2_d0 valid 0.339 {'ens_fwd': (0.0, 0.0), 'ens_rev': (0.027, 0.021)} one-sided -0.027 157 s
+z5200_x2_d0 valid 0.486 {'ens_fwd': (0.063, 0.048), 'ens_rev': (0.129, 0.223)} one-sided -0.066 135 s
+136 sites
+z6500_x2_d0 valid 0.532 {'ens_fwd': (0.071, 0.032), 'ens_rev': (0.213, 0.081)} one-sided -0.142 74 s
+z7800_x2_d0 valid 0.578 {'ens_fwd': (0.001, 0.001), 'ens_rev': (0.015, 0.01)} one-sided -0.014 157 s
+z9100_x2_d0 valid 0.49 {'ens_fwd': (0.011, 0.003), 'ens_rev': (0.635, 0.132)} one-sided -0.624 148 s
+z10400_x2_d0 valid 0.673 {'ens_fwd': (0.031, 0.029), 'ens_rev': (0.083, 0.026)} one-sided -0.052 131 s
