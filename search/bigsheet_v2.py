@@ -187,6 +187,8 @@ def main():
     if a.clean_cache:
         import shutil
         shutil.rmtree(os.path.join(zf.CACHE, a.volume.replace('/', '__'), 'L0'), ignore_errors=True)
+        # the m7 prediction chunks cached by fetch_pred too (a whole campaign left 7.4 GB of them on PHerc0826)
+        shutil.rmtree(os.path.join(zf.CACHE, f'{a.pred}/0'.replace('/', '__')), ignore_errors=True)
     if not a.no_infer:
         subprocess.call([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'blockscan_infer.py'),
                          a.out, 's42', 's43', 'ftb'])

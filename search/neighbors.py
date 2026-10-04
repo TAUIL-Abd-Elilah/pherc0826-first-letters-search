@@ -14,24 +14,28 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from dense0826 import VOL, PRED, D9, OUT, N  # noqa: E402
+from dense0826 import D9, OUT as OUT0826  # noqa: E402
+import zfetch as zf  # noqa: E402
+import campaign_cfg  # noqa: E402
+
+OUT = os.environ.get('CAMPAIGN_DIR', OUT0826)          # PHerc0826 dense campaign by default; any dense_any.py dir works
+VOL, PRED, SITES = campaign_cfg.load(OUT)
 
 
 def site_args(name):
-    st = {s['name']: s for s in json.load(open(os.path.join(OUT, 'sites_v2.json')))}[name]
-    zc, lat, dep = st['z'], st['lat'], st['dep']
-    box = [zc - 650, zc + 650, max(0, dep - 250), min(N, dep + 250), max(0, lat - 800), min(N, lat + 800)]
-    return box, [str(zc), str(lat), str(dep)]
+    zc, lat, dep, axis = SITES[name]
+    box = campaign_cfg.box_for(zc, lat, dep, axis, zf.meta(VOL, 0)['shape'])
+    return box, [str(zc), str(lat), str(dep)], axis
 
 
 def run(name, k, out):
     sp = os.path.join(out, 'scores.json')
     if os.path.exists(sp) and 'ens_fwd' in json.load(open(sp)):
         return True
-    box, seed = site_args(name)
+    box, seed, axis = site_args(name)
     if not os.path.exists(os.path.join(out, 'sheet_valid.npy')):
         r = subprocess.run([sys.executable, os.path.join(HERE, 'bigsheet_v2.py'), VOL, PRED, out, '--box', *map(str, box),
-                            '--seed', *seed, '--axis', 'y', '--normal', '--no-infer', '--clean-cache', '--run-offset', str(k),
+                            '--seed', *seed, '--axis', axis, '--normal', '--no-infer', '--clean-cache', '--run-offset', str(k),
                             '--neighbour-of', os.path.join(OUT, name)],
                            capture_output=True, text=True)
         if not os.path.exists(os.path.join(out, 'sheet_valid.npy')):

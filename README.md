@@ -37,6 +37,17 @@
 
 v8-in agreeing on the face is weak evidence by itself: it also agrees on blob fields that are plainly texture.
 
+## Two more scrolls: PHerc0358 and PHerc0813
+
+The same protocol, run on the next two eligible scans in the sheet-contrast atlas order, with `search/dense_any.py`, which works on any scroll: PHerc0358 is crushed diagonally and PHerc0813 is roughly round, so each site's depth axis is chosen from the local sheet orientation (structure tensor of the CT slice) instead of a fixed axis. Sites sit on a 1200-voxel grid inside the scroll at heights every 1300 voxels.
+
+| scroll | volume | sites read | sheet area | strong sites (≥ 0.5) | after review |
+|---|---|---|---|---|---|
+| PHerc0358 | `20250821151737` (9.362 µm) | 99 | 100 cm² | 5 | no lead: crumpled and folded papyrus, blob fields |
+| PHerc0813 | `20250821151723` (9.362 µm) | 124 | 126 cm² | 8 | no lead: slabs by folds, fibre bands above seams, blob fields |
+
+Site lists, every score and the rankings are in `results/other_scrolls/`. The control scripts (`neighbors.py`, `extend_site.py`, `reread_v8in.py`) take `CAMPAIGN_DIR` and work on these campaigns too.
+
 ## The reader (d9v2)
 
 132 published segments have both a native ~9 µm surface volume and the organisers' ~2.4 µm `new_canon` ink prediction (PHerc0009B 18, 0139 38, 0343P 8, 0500P2 46, 0814 19, 0841 3). The prediction is moved onto the 9 µm canvas and used as a dense target to fine-tune the released `ink_9um` (hybrid_3d2d seed 42, step 75k), 12k steps, batch 24, per-scroll balanced. Eight segments with the organisers' human labels (20260918 set) are held out, including all three PHerc0841 segments (no PHerc0841 data in our training set, and not in `ink_9um`'s). This is the same idea as Domenico Russo's retraining from dense teacher labels (Reader v2) and Erwin Nieuwlaar's dense pseudo-labels; here it is done on the native 9 µm renders of six scrolls.
@@ -76,6 +87,7 @@ python search/neighbors.py z3900_x0_d1 fwd       # neighbouring windings k = -3.
 python search/extend_site.py z13000_x0_d0 fwd    # 8 surrounding tiles on the same sheet
 python search/reread_v8in.py z3900_x0_d1         # v8-in, both faces
 python search/row_period.py                      # line-pitch calibration
+python search/dense_any.py --scroll PHerc0813 --vol <volume> --pred <m7 prediction> --out <dir>   # any scroll
 
 python reader/pack9.py <scroll>/<segment> ...    # corpus (see reader/segments.txt)
 python reader/realign_rv2.py remeasure && touch $D9_DATA/apply_go && python reader/realign_rv2.py apply

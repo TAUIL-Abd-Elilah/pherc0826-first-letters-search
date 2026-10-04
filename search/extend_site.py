@@ -14,13 +14,18 @@ from scipy import ndimage
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from dense0826 import VOL, PRED, D9, OUT, N  # noqa: E402
+from dense0826 import D9, OUT as OUT0826  # noqa: E402
+import zfetch as zf  # noqa: E402
+import campaign_cfg  # noqa: E402
+
+OUT = os.environ.get('CAMPAIGN_DIR', OUT0826)          # PHerc0826 dense campaign by default; any dense_any.py dir works
+VOL, PRED, SITES = campaign_cfg.load(OUT)
+N = zf.meta(VOL, 0)['shape']
 
 
 def main():
     name, face = sys.argv[1], sys.argv[2]
-    st = {s['name']: s for s in json.load(open(os.path.join(OUT, 'sites_v2.json')))}[name]
-    zc, lat, dep = st['z'], st['lat'], st['dep']
+    zc, lat, dep, axis = SITES[name]                                       # lateral / depth per the site's axis
     site = os.path.join(OUT, name)
     H0 = np.load(os.path.join(site, 'sheet_00_h.npy')); V0 = np.load(os.path.join(site, 'sheet_valid.npy'))
     sz0, sl0, sd0 = zc - 650, max(0, lat - 800), max(0, dep - 250)          # site box origin (z, lateral, depth)
@@ -41,14 +46,14 @@ def main():
             q = int(np.argmin((zz + bz0 - tz) ** 2 + (ll + bl0 - tl) ** 2))
             qz, ql = zz[q] + bz0 - sz0, ll[q] + bl0 - sl0
             sz, sl, sdep = int(sz0 + qz), int(sl0 + ql), float(sd0 + H0[qz, ql])
-            box = [tz - 650, tz + 650, max(0, int(sdep) - 250), min(N, int(sdep) + 250), max(0, tl - 800), min(N, tl + 800)]
+            box = campaign_cfg.box_for(tz, tl, int(sdep), axis, N)
             d = os.path.join(base, f't{i:+d}{j:+d}')
             os.makedirs(d, exist_ok=True)
             sp = os.path.join(d, 'scores.json')
             if not (os.path.exists(sp) and 'ens_fwd' in json.load(open(sp))):
                 if not os.path.exists(os.path.join(d, 'sheet_valid.npy')):
                     r = subprocess.run([sys.executable, os.path.join(HERE, 'bigsheet_v2.py'), VOL, PRED, d, '--box', *map(str, box),
-                                        '--seed', str(sz), str(sl), str(int(sdep)), '--axis', 'y', '--normal', '--no-infer', '--clean-cache'],
+                                        '--seed', str(sz), str(sl), str(int(sdep)), '--axis', axis, '--normal', '--no-infer', '--clean-cache'],
                                        capture_output=True, text=True)
                     if not os.path.exists(os.path.join(d, 'sheet_valid.npy')):
                         print('tile', i, j, 'track failed', (r.stdout + r.stderr).strip().splitlines()[-1:], flush=True)
@@ -56,7 +61,7 @@ def main():
                 subprocess.run([sys.executable, os.path.join(HERE, 'read_sheets.py'), d, '--no-v8in', '--ensemble', '--delete-render',
                                 '--ckpt', f'd9v2={D9}'], capture_output=True, text=True)
             json.dump({'box': box, 'seed': [sz, sl, sdep]}, open(os.path.join(d, 'tile.json'), 'w'))
-            tiles[(i, j)] = (d, box[0], box[4], box[2])
+            tiles[(i, j)] = (d, box[0], box[4], box[2]) if axis == 'y' else (d, box[0], box[2], box[4])   # (dir, z0, lateral0, depth0)
             sc = json.load(open(sp)) if os.path.exists(sp) else {}
             print('tile', i, j, {k: (sc[k]['best_2mm'], sc[k]['band']['score']) for k in ('ens_fwd', 'ens_rev') if k in sc}, flush=True)
     # mosaics on the joint canvas (z rows, lateral cols); later tiles do not overwrite the site

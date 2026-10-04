@@ -3,15 +3,14 @@ strokes, and is a different architecture from Reader v2 / d9v2, so it is an inde
 Per site: re-render the kept sheet (bigsheet_v2 --reuse-h, same box/seed as the campaign), run v8-in on the centre
 24 layers clipped at 200 in both layer orders (outward->inward = 'fwd', reversed = 'rev'), save v8in_fwd/rev.png,
 add v8in_fwd / v8in_rev scores to scores.json, delete the render.
-usage: reread_v8in.py <site_name> [...]   (sites from <CAMPAIGN_DIR>/sites_v2.json)"""
+usage: reread_v8in.py <site_name> [...]   (CAMPAIGN_DIR selects the campaign)"""
 import json, os, shutil, subprocess, sys
 import numpy as np
 import cv2, zarr
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from dense0826 import VOL, PRED, OUT  # noqa: E402
-from neighbors import site_args  # noqa: E402
+from neighbors import VOL, PRED, OUT, site_args  # noqa: E402  (CAMPAIGN_DIR selects the campaign)
 from read_sheets import best2mm, P  # noqa: E402
 from band_score import band_score  # noqa: E402
 
@@ -28,9 +27,9 @@ def main():
             continue
         zp = os.path.join(d, 'sheet_00.zarr')
         if not os.path.exists(zp):
-            box, seed = site_args(name)
+            box, seed, axis = site_args(name)
             subprocess.run([sys.executable, os.path.join(HERE, 'bigsheet_v2.py'), VOL, PRED, d, '--box', *map(str, box), '--seed', *seed,
-                            '--axis', 'y', '--normal', '--no-infer', '--clean-cache', '--reuse-h', d], capture_output=True, text=True)
+                            '--axis', axis, '--normal', '--no-infer', '--clean-cache', '--reuse-h', d], capture_output=True, text=True)
         s = np.asarray(zarr.open_array(zp, mode='r')[:])
         c = s.shape[0] // 2
         valid = s[c] > 0
