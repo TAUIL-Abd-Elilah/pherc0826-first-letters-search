@@ -2,6 +2,8 @@
 
 **In one sentence:** I tracked single sheets of PHerc0826 at 150 sites through the whole roll (162 cm² of sheet surface), read every one with two 9 µm ink readers, sent the seven best leads through three controls, and found no text.
 
+**Plus six more scrolls:** the same search on PHerc0358, 0813, 0175A, 0343, 0211 and 0483B (706 sites, 682 cm² of sheet) found no text either (see *Six more scrolls*).
+
 **Why this is useful:** PHerc0826 is the eligible 9 µm scan that looks most like the scrolls where ink was found (sheet-contrast atlas, claudepro1515), so the next person will look here first. The published 0826 nulls read surfaces from the spiral-fit workflow; the fit audit (claudepro1515) found the published 0826 fits no closer to the sheets than chance, and Scheirer's re-check of his own fits agrees for two of his three bands. These surfaces sit on the sheet: each one is grown along a single sheet of the organisers' m7 prediction and rendered along its normal. The site list, every score and the controls are in `results/`, so a reader can be re-run on exactly these places, or skip them.
 
 ![site map](figures/01_site_map.png)
@@ -37,14 +39,24 @@
 
 v8-in agreeing on the face is weak evidence by itself: it also agrees on blob fields that are plainly texture.
 
-## Two more scrolls: PHerc0358 and PHerc0813
+## Six more scrolls
 
-The same protocol, run on the next two eligible scans in the sheet-contrast atlas order, with `search/dense_any.py`, which works on any scroll: PHerc0358 is crushed diagonally and PHerc0813 is roughly round, so each site's depth axis is chosen from the local sheet orientation (structure tensor of the CT slice) instead of a fixed axis. Sites sit on a 1200-voxel grid inside the scroll at heights every 1300 voxels.
+The same protocol, run on the next eligible scans in the sheet-contrast atlas order that have an m7 surface prediction, with `search/dense_any.py`, which works on any scroll: PHerc0358 is crushed diagonally and PHerc0813 is roughly round, so each site's depth axis is chosen from the local sheet orientation (structure tensor of the CT slice) instead of a fixed axis. Sites sit on a 1200-voxel grid inside the scroll at heights every 1300 voxels.
 
 | scroll | volume | sites read | sheet area | strong sites (≥ 0.5) | after review |
 |---|---|---|---|---|---|
 | PHerc0358 | `20250821151737` (9.362 µm) | 99 | 100 cm² | 5 | no lead: crumpled and folded papyrus, blob fields |
 | PHerc0813 | `20250821151723` (9.362 µm) | 124 | 126 cm² | 8 | no lead: slabs by folds, fibre bands above seams, blob fields |
+| PHerc0175A | `20250521115057` (8.64 µm) | 126 | 111 cm² | 16 | no lead: blob fields on CT-bright patches, creases, edge blobs; more strong sites on the reverse face |
+| PHerc0343 | `20250521140437` (8.64 µm) | 140 | 130 cm² | 10 | no lead: slabs by folds and voids; two isolated marks tested (below) |
+| PHerc0211 | `20250821151803` (9.362 µm) | 110 of 114 | 121 cm² | 7 | no lead: blob fields, fibre-band rows; reverse-face clusters at z ≈ 9100 |
+| PHerc0483B | `20251124083638` (8.64 µm) | 107 | 94 cm² | 3 | no lead: blob clusters on heavily folded papyrus |
+
+- **Reader for the last four scrolls.** PHerc0175A, 0343, 0211 and 0483B were read with Reader v2 plus the letter-shape reader d9v4C ([9um-reader-letter-shape](https://github.com/TAUIL-Abd-Elilah/9um-reader-letter-shape), release v1.0) in place of d9v2. In their score files the `d9v2_*` and `ens_*` keys hold that pair; `campaign.json` says so.
+- **Two isolated marks on PHerc0343 were tested.** Both are on the forward (text) face.
+  - z10400_y3000_x5400 (two bars) passed the neighbour-winding control: +0.38 on its sheet, at most +0.03 on six neighbours. Followed along the same sheet, its bar is part of a thin streak about 10 mm long that runs along the horizontal fibres, with nothing letter-like nearby. Not letters.
+  - z7800_y6600_x5400 (a hook about 2.6 × 1.8 mm) passed the neighbour control too (+0.52, about 0 on neighbours). Seven of its eight context tiles stayed on the same sheet, about 33 × 40 mm of clean papyrus. On that area the other strong marks sit on bright CT inclusions or a crack, and the hook is alone. Not claimable.
+- **PHerc0211's reverse-face clusters.** The large clusters on PHerc0211 at z ≈ 9100 are on the face a roll usually leaves blank. They match the inner-wrap reverse-face feature seen on that scroll's published segments in September, which also reads on both faces higher up, so it is treated as structure.
 
 Site lists, every score and the rankings are in `results/other_scrolls/`. The control scripts (`neighbors.py`, `extend_site.py`, `reread_v8in.py`) take `CAMPAIGN_DIR` and work on these campaigns too.
 

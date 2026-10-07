@@ -6,7 +6,8 @@ axis-aligned; tracking tolerates ~45 deg of tilt, more with its reseed).
 Sites: heights every --step voxels; per height, centres on a --grid voxel square grid inside the scroll mask, kept
 when >= 60 % of the 500 x 1600 box is inside the mask. Ordered so that the whole scroll is covered early (centre
 heights and the middle of each cross-section first). Each site: bigsheet_v2 (normal render) + read_sheets
-(Reader v2 + d9v2 ensemble, both faces), render deleted. Network failures are retried on the next pass.
+(Reader v2 + d9v2 ensemble, both faces; the d9v2 slot takes D9_CKPT, logged in campaign.json), render
+deleted. Network failures are retried on the next pass.
 usage: dense_any.py --scroll PHerc0358 --vol <volume path> --pred <m7 path> --out <dir> [--step 1300] [--grid 1200]
 -> <out>/sites.json, <out>/<site>/{scores.json, ens_*.png, ct.png, sheet_*.npy}, <out>/campaign.log"""
 import argparse, json, os, subprocess, sys, time
@@ -19,7 +20,8 @@ import zfetch as zf  # noqa: E402
 
 P = os.environ.get('FLS_ROOT', '.')
 D9 = os.environ.get('D9_CKPT', f'{P}/_fl/dist9v2/runs/d9v2_a/ft-012000.pth')
-NET = ('URLError', 'getaddrinfo', 'timed out', 'ConnectionReset', 'No space left', 'Errno 28')   # retryable
+NET = ('URLError', 'getaddrinfo', 'timed out', 'ConnectionReset', 'No space left', 'Errno 28',
+       '.part')                                                   # retryable (.part = cache removed mid-write)
 
 
 def plan(a):
@@ -78,7 +80,7 @@ def main():
     ap.add_argument('--plan-only', action='store_true')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    json.dump({'scroll': a.scroll, 'vol': a.vol, 'pred': a.pred}, open(os.path.join(a.out, 'campaign.json'), 'w'), indent=1)   # for the controls
+    json.dump({'scroll': a.scroll, 'vol': a.vol, 'pred': a.pred, 'd9v2_slot': D9}, open(os.path.join(a.out, 'campaign.json'), 'w'), indent=1)   # for the controls
     sites = plan(a)
     say(a, a.scroll, len(sites), 'sites', {'y': sum(s['axis'] == 'y' for s in sites), 'x': sum(s['axis'] == 'x' for s in sites)})
     if a.plan_only:

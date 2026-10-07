@@ -53,16 +53,21 @@ def chunk(vol, level, key, m):
     cz, cy, cx = key
     shape = tuple(m['chunks'])
     path = os.path.join(CACHE, vol.replace('/', '__'), f'L{level}', f'{cz}_{cy}_{cx}.bin')
-    if os.path.exists(path):
+    try:
         raw = open(path, 'rb').read()
-    else:
+    except FileNotFoundError:                       # also when another job's --clean-cache removed it meanwhile
         if _bytes['n'] >= CAP:
             raise RuntimeError('route24 download cap reached')
         raw = _get(f'{BUCKET}/{vol}/{level}/{cz}/{cy}/{cx}')
         _bytes['n'] += len(raw)
-        with open(path + '.part', 'wb') as h:
-            h.write(raw)
-        os.replace(path + '.part', path)
+        try:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            tmp = f'{path}.{os.getpid()}.part'           # per-process: concurrent jobs may fetch the same chunk
+            with open(tmp, 'wb') as h:
+                h.write(raw)
+            os.replace(tmp, path)
+        except OSError:                             # cache dir removed under us: the bytes are still good
+            pass
     if not raw:
         return np.zeros(shape, np.uint8)
     return np.frombuffer(raw, np.uint8).reshape(shape)

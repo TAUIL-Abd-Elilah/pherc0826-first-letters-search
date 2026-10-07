@@ -18,6 +18,13 @@ def load(cdir):
     return VOL, PRED, sites
 
 
+def d9(cdir, default):
+    """Checkpoint in the campaign's 'd9v2' reader slot (dense_any.py logs it as d9v2_slot; d9v2 otherwise), so the
+    controls read with the same models as the campaign."""
+    p = os.path.join(cdir, 'campaign.json')
+    return json.load(open(p)).get('d9v2_slot', default) if os.path.exists(p) else default
+
+
 def box_for(zc, lat, dep, axis, N, half_lat=800, half_dep=250):
     """z0 z1 y0 y1 x0 x1 for bigsheet_v2 (N = level-0 (Z, Y, X))."""
     if axis == 'y':

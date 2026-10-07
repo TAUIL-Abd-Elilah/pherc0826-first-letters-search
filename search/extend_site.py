@@ -20,6 +20,7 @@ import campaign_cfg  # noqa: E402
 
 OUT = os.environ.get('CAMPAIGN_DIR', OUT0826)          # PHerc0826 dense campaign by default; any dense_any.py dir works
 VOL, PRED, SITES = campaign_cfg.load(OUT)
+D9 = campaign_cfg.d9(OUT, D9)                         # same 'd9v2'-slot reader as the campaign
 N = zf.meta(VOL, 0)['shape']
 
 

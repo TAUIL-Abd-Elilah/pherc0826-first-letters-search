@@ -1,0 +1,6 @@
+{
+ "scroll": "PHerc0175A",
+ "vol": "PHerc0175A/volumes/20250521115057-8.640um-1.2m-116keV-masked.zarr",
+ "pred": "PHerc0175A/representations/predictions/surfaces/20250521115057-surface-20260413222639-surface-m7-L0-th0.2.zarr",
+ "d9v2_slot": "d9v4C_ft-006000.pth (release v1.0 of TAUIL-Abd-Elilah/9um-reader-letter-shape); the d9v2_* / ens_* keys hold Reader v2 + d9v4C"
+}
