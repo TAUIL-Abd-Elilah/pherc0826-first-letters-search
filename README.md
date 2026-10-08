@@ -2,7 +2,7 @@
 
 **In one sentence:** I tracked single sheets of PHerc0826 at 150 sites through the whole roll (162 cm² of sheet surface), read every one with two 9 µm ink readers, sent the seven best leads through three controls, and found no text.
 
-**Plus six more scrolls:** the same search on PHerc0358, 0813, 0175A, 0343, 0211 and 0483B (706 sites, 682 cm² of sheet) found no text either (see *Six more scrolls*).
+**Plus six more scrolls:** the same search on PHerc0358, 0813, 0175A, 0343, 0211 and 0483B (706 sites, 682 cm² of sheet) found no text either (see *Six more scrolls*). That search missed real text on PHerc0343, found and awarded since; see the correction there.
 
 **Why this is useful:** PHerc0826 is the eligible 9 µm scan that looks most like the scrolls where ink was found (sheet-contrast atlas, claudepro1515), so the next person will look here first. The published 0826 nulls read surfaces from the spiral-fit workflow; the fit audit (claudepro1515) found the published 0826 fits no closer to the sheets than chance, and Scheirer's re-check of his own fits agrees for two of his three bands. These surfaces sit on the sheet: each one is grown along a single sheet of the organisers' m7 prediction and rendered along its normal. The site list, every score and the controls are in `results/`, so a reader can be re-run on exactly these places, or skip them.
 
@@ -48,10 +48,17 @@ The same protocol, run on the next eligible scans in the sheet-contrast atlas or
 | PHerc0358 | `20250821151737` (9.362 µm) | 99 | 100 cm² | 5 | no lead: crumpled and folded papyrus, blob fields |
 | PHerc0813 | `20250821151723` (9.362 µm) | 124 | 126 cm² | 8 | no lead: slabs by folds, fibre bands above seams, blob fields |
 | PHerc0175A | `20250521115057` (8.64 µm) | 126 | 111 cm² | 16 | no lead: blob fields on CT-bright patches, creases, edge blobs; more strong sites on the reverse face |
-| PHerc0343 | `20250521140437` (8.64 µm) | 140 | 130 cm² | 10 | no lead: slabs by folds and voids; two isolated marks tested (below) |
+| PHerc0343 | `20250521140437` (8.64 µm) | 140 | 130 cm² | 10 | no lead, **but text was there** (see the correction below) |
 | PHerc0211 | `20250821151803` (9.362 µm) | 110 of 114 | 121 cm² | 7 | no lead: blob fields, fibre-band rows; reverse-face clusters at z ≈ 9100 |
 | PHerc0483B | `20251124083638` (8.64 µm) | 107 | 94 cm² | 3 | no lead: blob clusters on heavily folded papyrus |
 
+- **Correction (8 Oct): this search missed real text on PHerc0343.**
+  - On 8 Oct the Vesuvius Challenge awarded the First Letters prize for PHerc0343 to Erwin Nieuwlaar, for letters on spiral-fit windings w047/w048 of this same volume, at z ≈ 10150-10780 ([Nieuwlaar/pherc343-first-letters](https://github.com/Nieuwlaar/pherc343-first-letters)).
+  - I mapped his published letter boxes through his mesh into the scan. Two of my sites contained that text in their boxes: z10400_y4200_x4200 (letters 10-13) and z10400_y4200_x5400 (letters 4, 7, 14, 15).
+  - At those letters the sheet I tracked was 18-48 voxels from his mesh, one to three windings away (windings here are about 17-26 voxels apart). At the second site my sheet did not reach them at all.
+  - Reading windings k = -4 to +4 around the first site with Reader v2 + d9v4C, the windings at or next to his (k = -1, -2) show a brighter band across the letter area on the forward face, but blobs, not letters.
+  - **So these nulls are weaker than they look.** One sheet per site samples a small share of the windings in each box, and on the right winding these readers, on these m7-tracked sheets, did not render the letters that a snapped spiral-fit surface and a four-model average did.
+  - Read the 'no lead' rows as 'no letters on the sheets sampled here', not as 'no ink in the scroll'.
 - **Reader for the last four scrolls.** PHerc0175A, 0343, 0211 and 0483B were read with Reader v2 plus the letter-shape reader d9v4C ([9um-reader-letter-shape](https://github.com/TAUIL-Abd-Elilah/9um-reader-letter-shape), release v1.0) in place of d9v2. In their score files the `d9v2_*` and `ens_*` keys hold that pair; `campaign.json` says so.
 - **Two isolated marks on PHerc0343 were tested.** Both are on the forward (text) face.
   - z10400_y3000_x5400 (two bars) passed the neighbour-winding control: +0.38 on its sheet, at most +0.03 on six neighbours. Followed along the same sheet, its bar is part of a thin streak about 10 mm long that runs along the horizontal fibres, with nothing letter-like nearby. Not letters.
